@@ -5,7 +5,7 @@ import json
 
 
 buyLimit = 100000
-sellLimit = 100
+sellLimit = 1000
 currentBotState = 'Idle'
 runLoop = 'Looprun:true'
 currentPrice = 100
