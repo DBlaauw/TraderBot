@@ -130,19 +130,4 @@ class BotStates:
             super().setCurrentBotState('Buy')
 pass
 
-async def hello(uri):
-    async with websockets.connect(uri) as websocket:
-        await websocket.send("""{
-  "method": "SUBSCRIBE",
-  "params": [
-    "btcusdt@aggTrade",
-    "btcusdt@depth"
-  ],
-  "id": 1
-}""")
-        x = await websocket.recv()
-        print(x)
-asyncio.get_event_loop().run_until_complete(
-    hello('wss://testnet.binance.vision/ws'))
-
 
