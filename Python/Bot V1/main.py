@@ -2,13 +2,15 @@ import time
 import random
 import requests
 import json
+import asyncio
+import websockets
 
 
-buyLimit = 100000
-sellLimit = 1000
+buyLimit = 1000
+sellLimit = 1100
 currentBotState = 'Idle'
 runLoop = 'Looprun:true'
-currentPrice = 100
+currentPrice = 1000
 eurBalance = 500
 coinBalance = 0
 
@@ -20,13 +22,13 @@ class InfoFromBinance:
     def getSymbolPrice(self):
         global currentPrice
         #do Http magic
-        response = requests.get('https://api.binance.com/api/v3/avgPrice?symbol=' + self.symbol)
-        print(response)  
-       # 
-       # if currentBotState == 'Buy':
-       #     currentPrice = currentPrice-random.randrange(0,2,0.001)
-       # else:
-       #     currentPrice = currentPrice+random.randrange(0,2,0.001)
+        #response = requests.get('https://api.binance.com/api/v3/avgPrice?symbol=' + self.symbol)
+        #print(response)  
+        
+        if currentBotState == 'Buy':
+            currentPrice = currentPrice-random.randrange(0,1000,1)/1000
+        else:
+            currentPrice = currentPrice+random.randrange(0,1000,1)/1000
 
         return currentPrice
     def sellSymbol(self):
@@ -128,14 +130,19 @@ class BotStates:
             super().setCurrentBotState('Buy')
 pass
 
+async def hello(uri):
+    async with websockets.connect(uri) as websocket:
+        await websocket.send("""{
+  "method": "SUBSCRIBE",
+  "params": [
+    "btcusdt@aggTrade",
+    "btcusdt@depth"
+  ],
+  "id": 1
+}""")
+        x = await websocket.recv()
+        print(x)
+asyncio.get_event_loop().run_until_complete(
+    hello('wss://testnet.binance.vision/ws'))
 
-while runLoop == 'Looprun:true':
-    with open('C:\\Git\\TraderBot\\Python\\config.txt', 'r') as file:
-        data = file.read().replace('\n', '')
-    runLoop = data  
-    class_ = getattr(BotStates, 'BotState'+currentBotState)
-    instance = class_()
-    instance.DoStateAction()
-    #to be replaced by event handler
-    time.sleep(0.5) 
 
