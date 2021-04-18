@@ -1,3 +1,5 @@
+# Tommie Branch
+
 import time
 import random
 import requests
@@ -45,25 +47,25 @@ def on_message(ws, message):
             print(json_data['s'] + ' ' + json_data['c'])
             if float(format(float(json_data['c'])-float(dicter[json_data['s']]), '.8f'))>=0:
                 print('HOLD')
-                if  float(dicter['coinz']) == 0 :  
+                if  float(dicter['coinz']) == 0 :
                     dicter['coinz'] = format(float(dicter['wallet'])/float(json_data['c']), '.8f')
                     dicter['wallet'] = 0
                     print('BUY coinz: ' + dicter['coinz'])
             else:
-                if float(dicter['coinz']) > 0:  
+                if float(dicter['coinz']) > 0:
                     print('SELL')
                     dicter['wallet'] = format(float(dicter['coinz'])*float(json_data['c']), '.8f')
-                    dicter['coinz'] = 0 
+                    dicter['coinz'] = 0
                 print(dicter['wallet'])
-            
+
         elif int(dicter['count']) == 0:
             print(json_data['s'] + ' ' + json_data['c'])
             dicter[json_data['s']] = json_data['c']
             dicter['count'] = int(dicter['count'])+1
         else :
             dicter['count'] = int(dicter['count'])+1
-        
-        
+
+
         #print(dicter[json_data['s']])
 
 def on_error(ws, error):
@@ -74,7 +76,7 @@ def on_close(ws):
     if float(dicter['wallet'])==0 :
         print('FINAL SELL')
         dicter['wallet'] = format(float(dicter['coinz'])*float(dicter[dicter['s']]), '.8f')
-        dicter['coinz'] = 0 
+        dicter['coinz'] = 0
     print(dicter['wallet'])
     print("### closed ###")
 
