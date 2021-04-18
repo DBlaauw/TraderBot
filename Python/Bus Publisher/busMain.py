@@ -1,11 +1,24 @@
 # Tommie Branch
 
+
+import sys      # passing arguments
+import argvparser    # passing args
+
 import time
 import random
 import requests
 import json
 import asyncio
 import websocket
+
+## SPIELERIJ
+
+print ("The script has the name %s" % (sys.argv[0]))
+
+## EINDE
+
+
+
 #key RxdSpWXcboa3SqxhSaP1mElEaYeyL7vl43WWe9bdOO05VkGn3iNmYJsbPHara1Og
 #secret GxLgnrfUbZIAb9u3vB0iXCLiG3jRBkK8eGk7euXFpWcDUb7k5b5anAK4wu4bWhu9
 # "wss://stream.binance.com:9443/ws"
@@ -37,7 +50,7 @@ def on_message(ws, message):
     json_data = json.loads(message)
     global bla
     global dicter
-    print(int(dicter['count']))
+    int(dicter['count'])
     if int(bla) == 0:
         bla = 1
     else:
@@ -45,7 +58,7 @@ def on_message(ws, message):
             dicter['count'] = 0
             dicter['s'] = json_data['s']
             print(json_data['s'] + ' ' + json_data['c'])
-            if float(format(float(json_data['c'])-float(dicter[json_data['s']]), '.8f'))>=0:
+            if float(format(float(json_data['c'])-float(dicter[json_data['s']]), '.8f'))>0:      # >= in dit systeem is een sell voor niet omhoog gaan niet erg
                 print('HOLD')
                 if  float(dicter['coinz']) == 0 :
                     dicter['coinz'] = format(float(dicter['wallet'])/float(json_data['c']), '.8f')
@@ -59,7 +72,7 @@ def on_message(ws, message):
                 print(dicter['wallet'])
 
         elif int(dicter['count']) == 0:
-            print(json_data['s'] + ' ' + json_data['c'])
+            #print(json_data['s'] + ' ' + json_data['c'])
             dicter[json_data['s']] = json_data['c']
             dicter['count'] = int(dicter['count'])+1
         else :
@@ -77,7 +90,10 @@ def on_close(ws):
         print('FINAL SELL')
         dicter['wallet'] = format(float(dicter['coinz'])*float(dicter[dicter['s']]), '.8f')
         dicter['coinz'] = 0
+    print("### closed ###")
     print(dicter['wallet'])
+    print(dicter['sleep'])
+    print(dicter['count'])
     print("### closed ###")
 
 def on_open(ws):
