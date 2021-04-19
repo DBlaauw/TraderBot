@@ -130,12 +130,13 @@ def on_open(ws):
             }
         jsons = json.dumps(settingding)
         ws.send(jsons)
-        time.sleep(dicter['sleep'])
+        time.sleep(int(dicter['sleep']))
         ws.close()
         print("thread terminating...")
     thread.start_new_thread(run, ())
 
 if __name__ == "__main__":
+    checkArg()
     websocket.enableTrace(True)
     ws = websocket.WebSocketApp("wss://stream.binance.com:9443/ws",
                               on_open = on_open,
@@ -144,5 +145,3 @@ if __name__ == "__main__":
                               on_close = on_close)
 
     ws.run_forever()
-
-checkArg()
