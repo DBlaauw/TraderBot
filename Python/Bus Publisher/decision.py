@@ -12,35 +12,38 @@ import json
 import asyncio
 import websocket
 
-global dicter
+
 
 ## INIT AND TAKE PARAMETERS OR HARVEST INPUT
 # Tel items in list en prop die in count var
-count = len(sys.argv)
 
-# Bij meer dan 4 items in list, waarschijnlijk params meegegeven
-if (count > 4):
-    coin = sys.argv[1]
-    sleep = sys.argv[2]
-    ticks = sys.argv[3]
-    wallet = sys.argv[4]
-    print("Parameters taken from command prompt")
-    print("Coin: " + coin + " | Sleep: " + sleep + " | Ticks: " + ticks + " | Wallet size: " + wallet)
-else:
-    print("Not all parameters given, please enter below.")
-    coin = input("Enter coin: ")
-    sleep = input("Enter sleep timer: ")
-    ticks = input("Enter ticks: ")
-    wallet = input("Enter wallet size: ")
-    print("Coin: " + coin + " | Sleep: " + sleep + " | Ticks: " + ticks + " | Wallet size: " + wallet)
+def checkArg():
+    global dicter
+    count = len(sys.argv)
 
-# Prep var for DaanCode
-dicter['wallet'] = wallet
-dicter['ticker'] = coin
-dicter['sleep'] = sleep
-dicter['counter'] = ticks
+    # Bij meer dan 4 items in list, waarschijnlijk params meegegeven
+    if (count > 4):
+        coin = sys.argv[1]
+        sleep = sys.argv[2]
+        ticks = sys.argv[3]
+        wallet = sys.argv[4]
+        print("Parameters taken from command prompt")
+        print("Coin: " + coin + " | Sleep: " + sleep + " | Ticks: " + ticks + " | Wallet size: " + wallet)
+    else:
+        print("Not all parameters given, please enter below.")
+        coin = input("Enter coin: ")
+        sleep = input("Enter sleep timer: ")
+        ticks = input("Enter ticks: ")
+        wallet = input("Enter wallet size: ")
+        print("Coin: " + coin + " | Sleep: " + sleep + " | Ticks: " + ticks + " | Wallet size: " + wallet)
 
+    # Prep var for DaanCode
+    dicter['wallet'] = wallet
+    dicter['ticker'] = coin
+    dicter['sleep'] = sleep
+    dicter['counter'] = ticks
 
+checkArg()
 
 # DAANCODE je ne comprend pas
 #key RxdSpWXcboa3SqxhSaP1mElEaYeyL7vl43WWe9bdOO05VkGn3iNmYJsbPHara1Og
