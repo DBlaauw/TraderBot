@@ -14,6 +14,25 @@ import websocket
 
 
 
+
+
+# DAANCODE je ne comprend pas
+#key RxdSpWXcboa3SqxhSaP1mElEaYeyL7vl43WWe9bdOO05VkGn3iNmYJsbPHara1Og
+#secret GxLgnrfUbZIAb9u3vB0iXCLiG3jRBkK8eGk7euXFpWcDUb7k5b5anAK4wu4bWhu9
+# "wss://stream.binance.com:9443/ws"
+try:
+    import thread
+except ImportError:
+    import _thread as thread
+import time
+
+dicter = {
+    'coinz':0,
+    'count':0
+}
+bla = 0
+
+
 ## INIT AND TAKE PARAMETERS OR HARVEST INPUT
 # Tel items in list en prop die in count var
 
@@ -44,21 +63,8 @@ def checkArg():
     dicter['counter'] = ticks
 
 
-# DAANCODE je ne comprend pas
-#key RxdSpWXcboa3SqxhSaP1mElEaYeyL7vl43WWe9bdOO05VkGn3iNmYJsbPHara1Og
-#secret GxLgnrfUbZIAb9u3vB0iXCLiG3jRBkK8eGk7euXFpWcDUb7k5b5anAK4wu4bWhu9
-# "wss://stream.binance.com:9443/ws"
-try:
-    import thread
-except ImportError:
-    import _thread as thread
-import time
 
-dicter = {
-    'coinz':0,
-    'count':0
-}
-bla = 0
+
 
 
 def on_message(ws, message):
