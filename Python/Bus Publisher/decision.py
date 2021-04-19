@@ -43,7 +43,6 @@ def checkArg():
     dicter['sleep'] = sleep
     dicter['counter'] = ticks
 
-checkArg()
 
 # DAANCODE je ne comprend pas
 #key RxdSpWXcboa3SqxhSaP1mElEaYeyL7vl43WWe9bdOO05VkGn3iNmYJsbPHara1Og
@@ -139,3 +138,5 @@ if __name__ == "__main__":
                               on_close = on_close)
 
     ws.run_forever()
+
+checkArg()
