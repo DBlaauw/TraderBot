@@ -3,7 +3,6 @@
 # Arguments
 import sys
 import argvparser
-
 # Origin imports
 import time
 import random
@@ -11,10 +10,6 @@ import requests
 import json
 import asyncio
 import websocket
-
-
-
-
 
 # DAANCODE je ne comprend pas
 #key RxdSpWXcboa3SqxhSaP1mElEaYeyL7vl43WWe9bdOO05VkGn3iNmYJsbPHara1Og
@@ -31,7 +26,6 @@ dicter = {
     'count':0
 }
 bla = 0
-
 
 ## INIT AND TAKE PARAMETERS OR HARVEST INPUT
 # Tel items in list en prop die in count var
@@ -63,10 +57,7 @@ def checkArg():
     dicter['counter'] = ticks
 
 
-
-
-
-
+#DAAN DINGEN
 def on_message(ws, message):
     json_data = json.loads(message)
     global bla
@@ -98,9 +89,6 @@ def on_message(ws, message):
             dicter['count'] = int(dicter['count'])+1
         else :
             dicter['count'] = int(dicter['count'])+1
-
-
-        #print(dicter[json_data['s']])
 
 def on_error(ws, error):
     print(error)
@@ -136,6 +124,7 @@ def on_open(ws):
     thread.start_new_thread(run, ())
 
 if __name__ == "__main__":
+    #Tommie functie om params te pakken of input te vragen
     checkArg()
     websocket.enableTrace(True)
     ws = websocket.WebSocketApp("wss://stream.binance.com:9443/ws",
