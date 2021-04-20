@@ -29,7 +29,6 @@ bla = 0
 
 ## INIT AND TAKE PARAMETERS OR HARVEST INPUT
 # Tel items in list en prop die in count var
-
 def checkArg():
     global dicter
     count = len(sys.argv)
