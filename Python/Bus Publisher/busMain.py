@@ -46,6 +46,8 @@ print(sleep)
 counter = int(input('count:'))
 dicter['counter'] = counter
 print(counter)
+
+
 def on_message(ws, message):
     json_data = json.loads(message)
     global bla
