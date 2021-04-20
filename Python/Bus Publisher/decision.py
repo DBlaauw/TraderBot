@@ -66,7 +66,7 @@ def on_message(ws, message):
     if int(bla) == 0:
         bla = 1
     else:
-        if int(dicter['count'])>int(dicter['counter']):
+        if int(dicter['count'])==int(dicter['counter']):
             dicter['count'] = 0
             dicter['s'] = json_data['s']
             print(json_data['s'] + ' ' + json_data['c'])
