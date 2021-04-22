@@ -36,18 +36,18 @@ def checkArg():
     # Bij meer dan 4 items in list, waarschijnlijk params meegegeven
     if (count > 4):
         coin = sys.argv[1]
-        sleep = sys.argv[2]
-        ticks = sys.argv[3]
-        wallet = sys.argv[4]
+        wallet = sys.argv[2]
+        sleep = sys.argv[3]
+        ticks = sys.argv[4]
         print("Parameters taken from command prompt")
-        print("Coin: " + coin + " | Sleep: " + sleep + " | Ticks: " + ticks + " | Wallet size: " + wallet)
+        print("Coin: " + coin + " | Wallet: " + wallet + " | Sleep: " + sleep + " | Ticks: " + ticks)
     else:
-        print("Not all parameters given, please enter below.")
+        print("This script can be run with paramaters eg. python script.py coin wallet sleep ticks")
         coin = input("Enter coin: ")
-        sleep = input("Enter sleep timer: ")
-        ticks = input("Enter ticks: ")
         wallet = input("Enter wallet size: ")
-        print("Coin: " + coin + " | Sleep: " + sleep + " | Ticks: " + ticks + " | Wallet size: " + wallet)
+        sleep = input("Enter duration in s: ")
+        ticks = input("Enter ticks: ")
+        print("Coin: " + coin + " | Wallet: " + wallet + " | Sleep: " + sleep + " | Ticks: " + ticks)
 
     # Prep var for DaanCode
     dicter['wallet'] = wallet
