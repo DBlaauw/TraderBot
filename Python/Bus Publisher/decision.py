@@ -27,7 +27,7 @@ dicter = {
 }
 bla = 0
 
-## INIT AND TAKE PARAMETERS OR HARVEST INPUT
+## Tommie Code - INIT AND TAKE PARAMETERS OR HARVEST INPUT
 # Tel items in list en prop die in count var
 def checkArg():
     global dicter
@@ -54,6 +54,24 @@ def checkArg():
     dicter['ticker'] = coin
     dicter['sleep'] = sleep
     dicter['counter'] = ticks
+
+## Tommie code - Schrijf result naar result.csv
+def writeResult():
+    global dicter
+    printwallet = float(dicter['wallet'])
+    round(printwallet,2)
+    printwallet = str(printwallet)
+
+    # Open the file in append en read mode ('a+')
+    with open("result.csv", "a+") as file_object:
+        # naar start!
+        file_object.seek(0)
+        # Als niet leeg dan append '\n'
+        data = file_object.read(100)
+        if len(data) > 0 :
+            file_object.write("\n")
+        # Append voeg toe aan einde file
+        file_object.write(sys.argv[1] + "," + sys.argv[2] + "," + sys.argv[3] + "," + sys.argv[4] + "," + printwallet)
 
 
 #DAAN DINGEN
@@ -103,6 +121,7 @@ def on_close(ws):
     print(dicter['sleep'])
     print(dicter['count'])
     print("### closed ###")
+    writeResult()
 
 def on_open(ws):
     global dicter
