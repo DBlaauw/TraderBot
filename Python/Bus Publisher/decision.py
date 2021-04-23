@@ -31,9 +31,13 @@ bla = 0
 # Tel items in list en prop die in count var
 def checkArg():
     global dicter
-    count = len(sys.argv)
+    global coin
+    global wallet
+    global sleep
+    global ticks
 
     # Bij meer dan 4 items in list, waarschijnlijk params meegegeven
+    count = len(sys.argv)
     if (count > 4):
         coin = sys.argv[1]
         wallet = sys.argv[2]
@@ -58,12 +62,18 @@ def checkArg():
 ## Tommie code - Schrijf result naar result.csv
 def writeResult():
     global dicter
+    global coin
+    global wallet
+    global sleep
+    global ticks
+    filename = coin + "-" + wallet + "-" + sleep + "-" + ticks
+
     printwallet = float(dicter['wallet'])
     round(printwallet,2)
     printwallet = str(printwallet)
 
     # Open the file in append en read mode ('a+')
-    with open("result.csv", "a+") as file_object:
+    with open( "results\" + filename + ".csv", "a+") as file_object:
         # naar start!
         file_object.seek(0)
         # Als niet leeg dan append '\n'
@@ -71,7 +81,7 @@ def writeResult():
         if len(data) > 0 :
             file_object.write("\n")
         # Append voeg toe aan einde file
-        file_object.write(sys.argv[1] + "," + sys.argv[2] + "," + sys.argv[3] + "," + sys.argv[4] + "," + printwallet)
+        file_object.write(coin + "," + wallet + "," + sleep + "," + ticks + "," + printwallet)
 
 
 #DAAN DINGEN
