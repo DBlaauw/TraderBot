@@ -40,7 +40,7 @@ def checkArg():
     dicter['sellCount'] = 0
     dicter['holdCount'] = 0
 
-    # Bij meer dan 4 items in list, waarschijnlijk params meegegeven
+    # Bij meer dan 4 items in list, waarschijnlijk params meegegeven, bij minder alsnog alles invoeren
     count = len(sys.argv)
     if (count > 4):
         coin = sys.argv[1]
@@ -63,7 +63,7 @@ def checkArg():
     dicter['sleep'] = sleep
     dicter['counter'] = ticks
 
-## Tommie code - Schrijf result naar result.csv
+## Tommie code - Schrijf result naar een resultaat file per set parameters xxx.csv
 def writeResult():
     global dicter
     global coin
