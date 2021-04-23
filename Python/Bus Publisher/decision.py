@@ -3,7 +3,6 @@
 # Arguments
 import sys
 import argvparser
-# Origin imports
 import time
 import random
 import requests
