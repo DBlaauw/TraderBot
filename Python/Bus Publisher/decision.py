@@ -36,6 +36,10 @@ def checkArg():
     global sleep
     global ticks
 
+    dicter['buyCount'] = 0
+    dicter['sellCount'] = 0
+    dicter['holdCount'] = 0
+
     # Bij meer dan 4 items in list, waarschijnlijk params meegegeven
     count = len(sys.argv)
     if (count > 4):
@@ -66,14 +70,14 @@ def writeResult():
     global wallet
     global sleep
     global ticks
-    filename = coin + "-" + wallet + "-" + sleep + "-" + ticks
+    dicter['filename'] = coin + "-" + wallet + "-" + sleep + "-" + ticks
 
     printwallet = float(dicter['wallet'])
     round(printwallet,2)
     printwallet = str(printwallet)
 
     # Open the file in append en read mode ('a+')
-    with open( "results\" + filename + ".csv", "a+") as file_object:
+    with open( dicter['filename'] + ".csv", "a+") as file_object:
         # naar start!
         file_object.seek(0)
         # Als niet leeg dan append '\n'
@@ -81,7 +85,7 @@ def writeResult():
         if len(data) > 0 :
             file_object.write("\n")
         # Append voeg toe aan einde file
-        file_object.write(coin + "," + wallet + "," + sleep + "," + ticks + "," + printwallet)
+        file_object.write(coin + "," + wallet + "," + sleep + "," + ticks + "," + printwallet + "," + str(dicter['buyCount']) + "," + str(dicter['sellCount']) + "," + str(dicter['holdCount']))
 
 
 #DAAN DINGEN
@@ -89,6 +93,7 @@ def on_message(ws, message):
     json_data = json.loads(message)
     global bla
     global dicter
+
     int(dicter['count'])
     if int(bla) == 0:
         bla = 1
@@ -97,15 +102,18 @@ def on_message(ws, message):
             dicter['count'] = 0
             dicter['s'] = json_data['s']
             print(json_data['s'] + ' ' + json_data['c'])
-            if float(format(float(json_data['c'])-float(dicter[json_data['s']]), '.8f'))>0:      # >= in dit systeem is een sell voor niet omhoog gaan niet erg
+            if float(format(float(json_data['c'])-float(dicter[json_data['s']]), '.8f'))>=0:
                 print('HOLD')
+                dicter['holdCount'] = int(dicter['holdCount'])+1
                 if  float(dicter['coinz']) == 0 :
                     dicter['coinz'] = format(float(dicter['wallet'])/float(json_data['c']), '.8f')
                     dicter['wallet'] = 0
                     print('BUY coinz: ' + dicter['coinz'])
+                    dicter['buyCount'] = int(dicter['buyCount'])+1
             else:
                 if float(dicter['coinz']) > 0:
                     print('SELL')
+                    dicter['sellCount'] = int(dicter['sellCount'])+1
                     dicter['wallet'] = format(float(dicter['coinz'])*float(json_data['c']), '.8f')
                     dicter['coinz'] = 0
                 print(dicter['wallet'])
@@ -126,12 +134,18 @@ def on_close(ws):
         print('FINAL SELL')
         dicter['wallet'] = format(float(dicter['coinz'])*float(dicter[dicter['s']]), '.8f')
         dicter['coinz'] = 0
-    print("### closed ###")
-    print(dicter['wallet'])
-    print(dicter['sleep'])
-    print(dicter['count'])
-    print("### closed ###")
+    #write before decl....
     writeResult()
+    #print shit in term
+    print("### Finalizing ###")
+    print("Wallet: " + str(dicter['wallet']))
+    print("Sleep: " + str(dicter['sleep']))
+    print("Count: " + str(dicter['count']))
+    print("Bought: " + str(dicter['buyCount']))
+    print("Sold: " + str(dicter['sellCount']))
+    print("Held: " + str(dicter['holdCount']))
+    print("### Result file: " + dicter['filename'] + ".csv ###")
+
 
 def on_open(ws):
     global dicter
